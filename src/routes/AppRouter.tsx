@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { AppShell } from '@/components/layout/AppShell'
+import { AuthGuard } from '@/features/auth/AuthGuard'
 import { HomePage } from '@/pages/HomePage'
 import { AnalyzePage } from '@/pages/AnalyzePage'
 import { PaymentSuccessPage } from '@/pages/PaymentSuccessPage'
@@ -19,7 +20,7 @@ export function AppRouter() {
         <Route path="/analyze/:analysisId" element={<AnalyzePage />} />
         <Route path="/payment/success" element={<PaymentSuccessPage />} />
         <Route path="/payment/cancel" element={<PaymentCancelPage />} />
-        <Route path="/pack" element={<PackPage />} />
+        <Route path="/pack" element={<AuthGuard><PackPage /></AuthGuard>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/faq" element={<FaqPage />} />

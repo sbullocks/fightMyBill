@@ -5,6 +5,21 @@ vi.mock('pdfjs-dist', () => ({
   getDocument: vi.fn(),
 }))
 
+const chainable = {
+  select: vi.fn(),
+  eq: vi.fn(),
+  order: vi.fn(),
+  limit: vi.fn(),
+  maybeSingle: vi.fn().mockResolvedValue({ data: null }),
+}
+// Make every method in the chain return chainable itself
+Object.keys(chainable).forEach((k) => {
+  if (k !== 'maybeSingle') {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(chainable as any)[k].mockReturnValue(chainable)
+  }
+})
+
 vi.mock('@/lib/supabaseClient', () => ({
   supabase: {
     auth: {
@@ -16,5 +31,6 @@ vi.mock('@/lib/supabaseClient', () => ({
       signInWithPassword: vi.fn(),
       signOut: vi.fn(),
     },
+    from: vi.fn().mockReturnValue(chainable),
   },
 }))

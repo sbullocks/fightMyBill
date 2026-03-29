@@ -61,6 +61,28 @@ serve(async (req) => {
         stripe_payment_intent: session.payment_intent,
       })
       .eq('id', analysis_id)
+  } else if (product_type === 'pack') {
+    const user_id = session.metadata?.user_id
+    if (!user_id) {
+      return new Response('Missing user_id for pack purchase', { status: 400 })
+    }
+
+    // Idempotency check — avoid creating duplicate packs for the same payment
+    const { data: existingPack } = await supabase
+      .from('bill_packs')
+      .select('id')
+      .eq('stripe_session_id', session.id)
+      .maybeSingle()
+
+    if (!existingPack) {
+      await supabase.from('bill_packs').insert({
+        user_id,
+        total_credits: 3,
+        used_credits: 0,
+        active: true,
+        stripe_session_id: session.id,
+      })
+    }
   }
 
   return new Response(JSON.stringify({ received: true }), {

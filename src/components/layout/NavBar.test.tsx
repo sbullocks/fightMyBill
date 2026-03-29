@@ -55,10 +55,11 @@ describe('NavBar', () => {
     expect(screen.getByText('FightMyBill')).toBeInTheDocument()
   })
 
-  it('renders user email and My Pack link when authenticated', () => {
+  it('renders My Pack and Sign Out when authenticated', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     renderNavBar({ email: 'test@example.com' } as any)
-    expect(screen.getByText('test@example.com')).toBeInTheDocument()
     expect(screen.getByText('My Pack')).toBeInTheDocument()
+    expect(screen.getByText('Sign Out')).toBeInTheDocument()
+    expect(screen.queryByText('Sign In')).not.toBeInTheDocument()
   })
 })

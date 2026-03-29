@@ -90,19 +90,47 @@ serve(async (req) => {
     Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
   )
 
-  // Rate limit: max 3 analyses per session per hour
-  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
-  const { count } = await supabase
-    .from('analyses')
-    .select('*', { count: 'exact', head: true })
-    .eq('session_id', sessionId)
-    .gte('created_at', oneHourAgo)
+  // Extract authenticated user from JWT if present
+  let userId: string | null = null
+  const authHeader = req.headers.get('Authorization') ?? ''
+  const token = authHeader.replace('Bearer ', '')
+  if (token) {
+    const { data: { user } } = await supabase.auth.getUser(token)
+    userId = user?.id ?? null
+  }
 
-  if (count !== null && count >= 3) {
-    return new Response(JSON.stringify({ error: 'Rate limit exceeded. Try again in an hour.' }), {
-      status: 429,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
+  // Check for active bill pack if user is authenticated
+  let activePack: { id: string; used_credits: number; total_credits: number } | null = null
+  if (userId) {
+    const { data } = await supabase
+      .from('bill_packs')
+      .select('id, used_credits, total_credits')
+      .eq('user_id', userId)
+      .eq('active', true)
+      .order('created_at', { ascending: true })
+      .limit(1)
+      .maybeSingle()
+
+    if (data && data.used_credits < data.total_credits) {
+      activePack = data
+    }
+  }
+
+  // Rate limit: max 3 analyses per session per hour (skip for pack users)
+  if (!activePack) {
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+    const { count } = await supabase
+      .from('analyses')
+      .select('*', { count: 'exact', head: true })
+      .eq('session_id', sessionId)
+      .gte('created_at', oneHourAgo)
+
+    if (count !== null && count >= 3) {
+      return new Response(JSON.stringify({ error: 'Rate limit exceeded. Try again in an hour.' }), {
+        status: 429,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
   }
 
   // Parse request
@@ -146,7 +174,6 @@ serve(async (req) => {
     })
   }
 
-  // Build Claude message content
   type ContentBlock =
     | { type: 'text'; text: string }
     | { type: 'image'; source: { type: 'base64'; media_type: string; data: string } }
@@ -158,7 +185,6 @@ serve(async (req) => {
       ]
     : [{ type: 'text', text: `Analyze this medical bill:\n\n${billText}` }]
 
-  // Call Claude
   const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -185,7 +211,6 @@ serve(async (req) => {
   const claudeData = await claudeRes.json()
   const rawText: string = claudeData.content?.[0]?.text ?? ''
 
-  // Parse JSON from Claude response
   let analysis: { free_data: unknown; paid_data: unknown }
   try {
     const jsonMatch = rawText.match(/\{[\s\S]*\}/)
@@ -199,13 +224,23 @@ serve(async (req) => {
     })
   }
 
-  // Store result — raw bill is never persisted
+  // If user has a pack credit, mark as paid immediately and decrement credit
+  const usePackCredit = activePack !== null
+  if (usePackCredit && activePack) {
+    await supabase
+      .from('bill_packs')
+      .update({ used_credits: activePack.used_credits + 1 })
+      .eq('id', activePack.id)
+  }
+
   const { data, error } = await supabase
     .from('analyses')
     .insert({
       session_id: sessionId,
+      user_id: userId,
       status: 'complete',
-      paid: false,
+      paid: usePackCredit,
+      pack_id: usePackCredit ? activePack?.id : null,
       free_data: analysis.free_data,
       paid_data: analysis.paid_data,
     })
@@ -219,7 +254,7 @@ serve(async (req) => {
     })
   }
 
-  return new Response(JSON.stringify(data), {
+  return new Response(JSON.stringify({ ...data, paid: usePackCredit }), {
     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   })
 })
