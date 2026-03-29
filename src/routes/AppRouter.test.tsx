@@ -43,7 +43,7 @@ function renderAt(path: string) {
 describe('AppRouter', () => {
   it('renders HomePage at /', () => {
     renderAt('/')
-    expect(screen.getByText(/HomePage/i)).toBeInTheDocument()
+    expect(screen.getByText(/stop overpaying your medical bills/i)).toBeInTheDocument()
   })
 
   it('renders UploadForm at /analyze', () => {

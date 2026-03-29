@@ -55,6 +55,11 @@ describe('NavBar', () => {
     expect(screen.getByText('FightMyBill')).toBeInTheDocument()
   })
 
+  it('renders the FAQ link', () => {
+    renderNavBar(null)
+    expect(screen.getByRole('link', { name: /faq/i })).toBeInTheDocument()
+  })
+
   it('renders My Pack and Sign Out when authenticated', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     renderNavBar({ email: 'test@example.com' } as any)

@@ -35,6 +35,9 @@ export function NavBar() {
           FightMyBill
         </Typography>
         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+          <Button component={RouterLink} to="/faq" size="small" color="inherit">
+            FAQ
+          </Button>
           {user ? (
             <>
               {pack && remaining > 0 && (
