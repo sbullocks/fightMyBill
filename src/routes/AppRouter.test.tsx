@@ -46,14 +46,14 @@ describe('AppRouter', () => {
     expect(screen.getByText(/HomePage/i)).toBeInTheDocument()
   })
 
-  it('renders AnalyzePage at /analyze', () => {
+  it('renders UploadForm at /analyze', () => {
     renderAt('/analyze')
-    expect(screen.getByText(/AnalyzePage/i)).toBeInTheDocument()
+    expect(screen.getByText(/Analyze your medical bill/i)).toBeInTheDocument()
   })
 
-  it('renders AnalyzePage at /analyze/:id', () => {
+  it('renders analysis loading state at /analyze/:id', () => {
     renderAt('/analyze/some-id')
-    expect(screen.getByText(/AnalyzePage/i)).toBeInTheDocument()
+    expect(screen.getByRole('progressbar')).toBeInTheDocument()
   })
 
   it('renders PaymentSuccessPage at /payment/success', () => {

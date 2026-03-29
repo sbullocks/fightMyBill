@@ -1,5 +1,10 @@
 import '@testing-library/jest-dom'
 
+vi.mock('pdfjs-dist', () => ({
+  GlobalWorkerOptions: { workerSrc: '' },
+  getDocument: vi.fn(),
+}))
+
 vi.mock('@/lib/supabaseClient', () => ({
   supabase: {
     auth: {
