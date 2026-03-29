@@ -2,7 +2,7 @@
 
 AI-powered medical bill auditor. Upload or paste a medical bill, get every line item decoded into plain English, and receive a personalized negotiation letter you can send to the billing department today.
 
-**Live:** [fightmybill.com](https://fightmybill.com)
+**Live:** [fight-my-bill.vercel.app](https://fight-my-bill.vercel.app)
 
 ---
 
@@ -161,4 +161,4 @@ supabase/
 - Raw bill content is **never stored** — sent to Claude for analysis and immediately discarded
 - Structured analysis results are stored for 90 days then auto-deleted
 - Not a HIPAA Business Associate; operates as an informational analysis tool
-- See [Privacy Policy](https://fightmybill.com/privacy) and [Terms of Service](https://fightmybill.com/terms)
+- See [Privacy Policy](https://fight-my-bill.vercel.app/privacy) and [Terms of Service](https://fight-my-bill.vercel.app/terms)

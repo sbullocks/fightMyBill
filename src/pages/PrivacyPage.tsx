@@ -16,7 +16,7 @@ export function PrivacyPage() {
       </Typography>
 
       <Section title="Overview">
-        FightMyBill ("we", "us", "our") operates the website at fightmybill.com. This policy
+        FightMyBill ("we", "us", "our") operates the website at fight-my-bill.vercel.app. This policy
         explains what information we collect when you use our service, how we use it, and your
         rights regarding that information.
       </Section>
