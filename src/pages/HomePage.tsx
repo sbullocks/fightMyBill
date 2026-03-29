@@ -22,7 +22,7 @@ const STEPS = [
   },
   {
     icon: <SearchIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
-    title: 'AI audits every line item',
+    title: 'FightMyBill audits every line item',
     body: 'We decode CPT codes, flag duplicate charges, upcoding, unbundling, and balance billing violations.',
   },
   {
@@ -44,8 +44,11 @@ const ISSUES = [
 const TRUST = [
   { icon: <LockOutlinedIcon />, label: 'Raw bill never stored' },
   { icon: <CheckCircleOutlineIcon />, label: 'Works on any US medical bill' },
-  { icon: <CheckCircleOutlineIcon />, label: 'No account required for a single bill' },
-  { icon: <CheckCircleOutlineIcon />, label: 'Results in under 30 seconds' },
+  {
+    icon: <CheckCircleOutlineIcon />,
+    label: 'No account required for a single bill',
+  },
+  { icon: <CheckCircleOutlineIcon />, label: 'Results in under 60 seconds' },
 ]
 
 export function HomePage() {
@@ -63,17 +66,31 @@ export function HomePage() {
         <Container maxWidth="md">
           <Chip
             label="Most medical bills contain at least one error"
-            sx={{ bgcolor: 'rgba(255,255,255,0.15)', color: 'white', mb: 3, fontWeight: 600 }}
+            sx={{
+              bgcolor: 'rgba(255,255,255,0.15)',
+              color: 'white',
+              mb: 3,
+              fontWeight: 600,
+            }}
           />
-          <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}>
+          <Typography
+            variant="h2"
+            sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}
+          >
             Stop overpaying your medical bills
           </Typography>
           <Typography
             variant="h6"
-            sx={{ fontWeight: 400, opacity: 0.9, mb: 4, maxWidth: 540, mx: 'auto' }}
+            sx={{
+              fontWeight: 400,
+              opacity: 0.9,
+              mb: 4,
+              maxWidth: 540,
+              mx: 'auto',
+            }}
           >
-            AI audits your bill for errors, then writes the negotiation letter for you.
-            Free to try — no account needed.
+            FightMyBill audits your bill for errors, then writes the negotiation
+            letter for you. Free to try — no account needed.
           </Typography>
           <Button
             component={RouterLink}
@@ -98,7 +115,14 @@ export function HomePage() {
       </Box>
 
       {/* Trust signals */}
-      <Box sx={{ bgcolor: 'background.paper', borderBottom: '1px solid', borderColor: 'divider', py: 2 }}>
+      <Box
+        sx={{
+          bgcolor: 'background.paper',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
+          py: 2,
+        }}
+      >
         <Container maxWidth="md">
           <Box
             sx={{
@@ -109,9 +133,21 @@ export function HomePage() {
             }}
           >
             {TRUST.map(({ icon, label }) => (
-              <Box key={label} sx={{ display: 'flex', alignItems: 'center', gap: 0.75, color: 'text.secondary' }}>
-                <Box sx={{ color: 'secondary.main', display: 'flex' }}>{icon}</Box>
-                <Typography variant="body2" fontWeight={500}>{label}</Typography>
+              <Box
+                key={label}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 0.75,
+                  color: 'text.secondary',
+                }}
+              >
+                <Box sx={{ color: 'secondary.main', display: 'flex' }}>
+                  {icon}
+                </Box>
+                <Typography variant="body2" fontWeight={500}>
+                  {label}
+                </Typography>
               </Box>
             ))}
           </Box>
@@ -123,7 +159,12 @@ export function HomePage() {
         <Typography variant="h4" textAlign="center" gutterBottom>
           How it works
         </Typography>
-        <Typography variant="body1" color="text.secondary" textAlign="center" sx={{ mb: 6 }}>
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          textAlign="center"
+          sx={{ mb: 6 }}
+        >
           Three steps from bill to negotiation letter.
         </Typography>
         <Grid container spacing={4}>
@@ -132,7 +173,12 @@ export function HomePage() {
               <Card sx={{ height: '100%', textAlign: 'center' }}>
                 <CardContent sx={{ p: 4 }}>
                   <Box sx={{ mb: 2 }}>{step.icon}</Box>
-                  <Typography variant="caption" color="primary" fontWeight={700} letterSpacing={1}>
+                  <Typography
+                    variant="caption"
+                    color="primary"
+                    fontWeight={700}
+                    letterSpacing={1}
+                  >
                     STEP {i + 1}
                   </Typography>
                   <Typography variant="h6" sx={{ mt: 0.5, mb: 1.5 }}>
@@ -156,14 +202,23 @@ export function HomePage() {
           <Typography variant="h4" textAlign="center" gutterBottom>
             What we look for
           </Typography>
-          <Typography variant="body1" color="text.secondary" textAlign="center" sx={{ mb: 6 }}>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            textAlign="center"
+            sx={{ mb: 6 }}
+          >
             Billing departments make mistakes — and some aren't accidents.
           </Typography>
           <Grid container spacing={2}>
             {ISSUES.map((issue) => (
               <Grid key={issue} size={{ xs: 12, sm: 6 }}>
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                  <CheckCircleOutlineIcon sx={{ color: 'secondary.main', mt: 0.25, flexShrink: 0 }} />
+                <Box
+                  sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}
+                >
+                  <CheckCircleOutlineIcon
+                    sx={{ color: 'secondary.main', mt: 0.25, flexShrink: 0 }}
+                  />
                   <Typography variant="body1">{issue}</Typography>
                 </Box>
               </Grid>
@@ -175,20 +230,31 @@ export function HomePage() {
       <Divider />
 
       {/* Pricing */}
-      <Container maxWidth="sm" sx={{ py: { xs: 6, md: 10 }, textAlign: 'center' }}>
+      <Container
+        maxWidth="sm"
+        sx={{ py: { xs: 6, md: 10 }, textAlign: 'center' }}
+      >
         <Typography variant="h4" gutterBottom>
           Simple pricing
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 5 }}>
           Analyzing your bill is always free. Pay only to unlock the full audit.
         </Typography>
-        <Grid container spacing={3} justifyContent="center">
+        <Grid container spacing={3} justifyContent="center" sx={{ pt: 2 }}>
           <Grid size={{ xs: 12, sm: 6 }}>
             <Card>
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="overline" color="text.secondary">Single</Typography>
-                <Typography variant="h4" fontWeight={700} sx={{ my: 1 }}>$5</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                <Typography variant="overline" color="text.secondary">
+                  Single
+                </Typography>
+                <Typography variant="h4" fontWeight={700} sx={{ my: 1 }}>
+                  $5
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mb: 2 }}
+                >
                   Full audit + negotiation letter for one bill
                 </Typography>
                 <Button
@@ -203,17 +269,36 @@ export function HomePage() {
             </Card>
           </Grid>
           <Grid size={{ xs: 12, sm: 6 }}>
-            <Card sx={{ border: '2px solid', borderColor: 'primary.main', position: 'relative' }}>
+            <Card
+              sx={{
+                border: '2px solid',
+                borderColor: 'primary.main',
+                position: 'relative',
+              }}
+            >
               <Chip
                 label="Best value"
                 color="primary"
                 size="small"
-                sx={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)' }}
+                sx={{
+                  position: 'absolute',
+                  top: -12,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                }}
               />
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="overline" color="text.secondary">Pack</Typography>
-                <Typography variant="h4" fontWeight={700} sx={{ my: 1 }}>$12</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                <Typography variant="overline" color="text.secondary">
+                  Pack
+                </Typography>
+                <Typography variant="h4" fontWeight={700} sx={{ my: 1 }}>
+                  $12
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mb: 2 }}
+                >
                   3 full audits — valid for 12 months
                 </Typography>
                 <Button
@@ -231,7 +316,14 @@ export function HomePage() {
       </Container>
 
       {/* Bottom CTA */}
-      <Box sx={{ bgcolor: 'primary.main', color: 'white', py: { xs: 6, md: 8 }, textAlign: 'center' }}>
+      <Box
+        sx={{
+          bgcolor: 'primary.main',
+          color: 'white',
+          py: { xs: 6, md: 8 },
+          textAlign: 'center',
+        }}
+      >
         <Container maxWidth="sm">
           <Typography variant="h5" gutterBottom>
             Your free analysis is waiting
@@ -244,7 +336,11 @@ export function HomePage() {
             to="/analyze"
             variant="contained"
             size="large"
-            sx={{ bgcolor: 'white', color: 'primary.dark', '&:hover': { bgcolor: 'grey.100' } }}
+            sx={{
+              bgcolor: 'white',
+              color: 'primary.dark',
+              '&:hover': { bgcolor: 'grey.100' },
+            }}
           >
             Analyze my bill
           </Button>
