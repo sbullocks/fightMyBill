@@ -2,12 +2,15 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { Analysis } from '@/types/analysis.types'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string
 
 export const analysisApi = createApi({
   reducerPath: 'analysisApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${supabaseUrl}/functions/v1`,
     prepareHeaders: (headers) => {
+      headers.set('apikey', supabaseAnonKey)
+      headers.set('Authorization', `Bearer ${supabaseAnonKey}`)
       const sessionId = localStorage.getItem('fmb_session_id')
       if (sessionId) headers.set('x-session-id', sessionId)
       return headers
