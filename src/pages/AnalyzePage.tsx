@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box'
+import Alert from '@mui/material/Alert'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useParams } from 'react-router-dom'
 import { UploadForm } from '@/features/analysis/UploadForm'
@@ -37,6 +38,14 @@ export function AnalyzePage() {
 
   return (
     <Box sx={{ px: 2, py: 4 }}>
+      <Box sx={{ maxWidth: 640, mx: 'auto', mb: 3 }}>
+        <Alert severity="info" sx={{ mb: 2 }}>
+          <strong>Founding offer:</strong> full analyses are free for early users — no payment required.
+        </Alert>
+        <Alert severity="warning" variant="outlined" icon={false} sx={{ fontSize: '0.8rem', py: 0.75 }}>
+          Informational tool only — not legal, medical, or professional billing advice.
+        </Alert>
+      </Box>
       <UploadForm />
     </Box>
   )

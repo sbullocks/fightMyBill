@@ -233,13 +233,29 @@ serve(async (req) => {
       .eq('id', activePack.id)
   }
 
+  // Founding user promo: first N total paid analyses are free
+  // Set PROMO_FREE_LIMIT env var to 0 (or omit) to disable
+  let isPromo = false
+  if (!usePackCredit) {
+    const promoLimit = parseInt(Deno.env.get('PROMO_FREE_LIMIT') ?? '0')
+    if (promoLimit > 0) {
+      const { count: paidCount } = await supabase
+        .from('analyses')
+        .select('*', { count: 'exact', head: true })
+        .eq('paid', true)
+      isPromo = (paidCount ?? 0) < promoLimit
+    }
+  }
+
+  const isPaid = usePackCredit || isPromo
+
   const { data, error } = await supabase
     .from('analyses')
     .insert({
       session_id: sessionId,
       user_id: userId,
       status: 'complete',
-      paid: usePackCredit,
+      paid: isPaid,
       pack_id: usePackCredit ? activePack?.id : null,
       free_data: analysis.free_data,
       paid_data: analysis.paid_data,
@@ -254,7 +270,7 @@ serve(async (req) => {
     })
   }
 
-  return new Response(JSON.stringify({ ...data, paid: usePackCredit }), {
+  return new Response(JSON.stringify({ ...data, paid: isPaid, promo: isPromo }), {
     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   })
 })

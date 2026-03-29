@@ -57,6 +57,6 @@ describe('AppShell', () => {
       </Provider>,
     )
     expect(screen.getByText('FightMyBill')).toBeInTheDocument()
-    expect(screen.getByText(/FightMyBill is not a law firm/i)).toBeInTheDocument()
+    expect(screen.getByText(/FightMyBill provides informational analysis only/i)).toBeInTheDocument()
   })
 })
