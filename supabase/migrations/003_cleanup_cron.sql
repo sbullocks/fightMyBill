@@ -1,0 +1,11 @@
+-- Enable pg_cron extension (must be enabled in Supabase dashboard under Extensions first)
+-- create extension if not exists pg_cron;
+
+-- Schedule nightly deletion of expired analyses
+-- Uncomment after enabling pg_cron in Supabase dashboard:
+--
+-- select cron.schedule(
+--   'delete-expired-analyses',
+--   '0 3 * * *',
+--   $$delete from public.analyses where expires_at < now()$$
+-- );
