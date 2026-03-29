@@ -282,7 +282,7 @@ export function HomePage() {
                 size="small"
                 sx={{
                   position: 'absolute',
-                  top: -12,
+                  top: 1,
                   left: '50%',
                   transform: 'translateX(-50%)',
                 }}
