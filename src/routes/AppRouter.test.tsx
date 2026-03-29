@@ -58,7 +58,7 @@ describe('AppRouter', () => {
 
   it('renders PaymentSuccessPage at /payment/success', () => {
     renderAt('/payment/success')
-    expect(screen.getByText(/PaymentSuccessPage/i)).toBeInTheDocument()
+    expect(screen.getByText(/Verifying your payment/i)).toBeInTheDocument()
   })
 
   it('renders NotFoundPage for unknown routes', () => {

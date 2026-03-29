@@ -6,6 +6,8 @@ export interface CheckoutRequest {
   analysis_id: string
   product_type: ProductType
   session_id: string
+  success_url: string
+  cancel_url: string
   user_id?: string
 }
 
