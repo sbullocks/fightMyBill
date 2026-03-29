@@ -65,7 +65,7 @@ describe('PackPage', () => {
   })
 
   it('shows used-up message and buy again button when all credits exhausted', () => {
-    const pack: BillPack = { id: 'pack-1', user_id: 'user-1', total_credits: 3, used_credits: 3, active: true, stripe_session_id: 'sess_1', created_at: '', expires_at: '' }
+    const pack: BillPack = { id: 'pack-1', user_id: 'user-1', total_credits: 3, used_credits: 3, active: true, created_at: '', expires_at: '' }
     vi.mocked(useMyPack).mockReturnValue(pack)
     renderPackPage()
     expect(screen.getByText('0 bills remaining')).toBeInTheDocument()
@@ -74,7 +74,7 @@ describe('PackPage', () => {
   })
 
   it('shows correct singular "bill remaining" for 1 credit', () => {
-    const pack: BillPack = { id: 'pack-1', user_id: 'user-1', total_credits: 3, used_credits: 2, active: true, stripe_session_id: 'sess_1', created_at: '', expires_at: '' }
+    const pack: BillPack = { id: 'pack-1', user_id: 'user-1', total_credits: 3, used_credits: 2, active: true, created_at: '', expires_at: '' }
     vi.mocked(useMyPack).mockReturnValue(pack)
     renderPackPage()
     expect(screen.getByText('1 bill remaining')).toBeInTheDocument()

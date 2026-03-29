@@ -31,7 +31,7 @@ export function RegisterPage() {
   }
 
   const apiError = error
-    ? ('data' in error ? (error.data as { error?: string })?.error : undefined) ?? 'Registration failed. Please try again.'
+    ? ('data' in (error as object) ? ((error as { data?: { error?: string } }).data?.error) : undefined) ?? 'Registration failed. Please try again.'
     : null
 
   if (submitted) {

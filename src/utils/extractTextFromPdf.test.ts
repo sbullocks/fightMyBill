@@ -23,7 +23,7 @@ describe('extractTextFromPdf', () => {
     }
     vi.mocked(pdfjsLib.getDocument).mockReturnValue({
       promise: Promise.resolve(mockPdf),
-    } as ReturnType<typeof pdfjsLib.getDocument>)
+    } as unknown as ReturnType<typeof pdfjsLib.getDocument>)
 
     const file = new File(['dummy'], 'bill.pdf', { type: 'application/pdf' })
     const result = await extractTextFromPdf(file)
@@ -44,7 +44,7 @@ describe('extractTextFromPdf', () => {
     }
     vi.mocked(pdfjsLib.getDocument).mockReturnValue({
       promise: Promise.resolve(mockPdf),
-    } as ReturnType<typeof pdfjsLib.getDocument>)
+    } as unknown as ReturnType<typeof pdfjsLib.getDocument>)
 
     const file = new File(['dummy'], 'empty.pdf', { type: 'application/pdf' })
     const result = await extractTextFromPdf(file)

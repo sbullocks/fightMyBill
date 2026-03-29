@@ -31,7 +31,7 @@ export function LoginPage() {
   }
 
   const apiError = error
-    ? ('data' in error ? (error.data as { error?: string })?.error : undefined) ?? 'Sign in failed. Check your email and password.'
+    ? ('data' in (error as object) ? ((error as { data?: { error?: string } }).data?.error) : undefined) ?? 'Sign in failed. Check your email and password.'
     : null
 
   return (

@@ -19,7 +19,8 @@ function makeStore(authState: { user: unknown; session: unknown; loading: boolea
     },
     middleware: (gDM) =>
       gDM().concat(analysisApi.middleware, paymentApi.middleware, authApi.middleware),
-    preloadedState: { auth: authState },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    preloadedState: { auth: authState as any },
   })
 }
 
