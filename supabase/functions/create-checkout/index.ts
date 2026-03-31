@@ -9,7 +9,8 @@ const corsHeaders = {
 }
 
 const ALLOWED_ORIGINS = [
-  'https://fight-my-bill.vercel.app',
+  'https://www.intellibuild-labs.com',
+  'https://intellibuild-labs.com',
   'http://localhost:5173',
   'http://localhost:3000',
 ]
