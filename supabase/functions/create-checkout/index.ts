@@ -9,8 +9,8 @@ const corsHeaders = {
 }
 
 const ALLOWED_ORIGINS = [
-  'https://www.intellibuild-labs.com',
-  'https://intellibuild-labs.com',
+  'https://www.fight-my-bill.com',
+  'https://fight-my-bill.com',
   'http://localhost:5173',
   'http://localhost:3000',
 ]

@@ -99,7 +99,7 @@ export function FaqPage() {
           Still have questions?
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-          The best way to see if FightMyBill is right for you is to try it — the first analysis is free.
+          Upload your bill and get a free preview — decoded line items and a count of issues found. Full audit and negotiation letter from $5.
         </Typography>
         <Button component={RouterLink} to="/analyze" variant="contained" size="large">
           Analyze my bill — free

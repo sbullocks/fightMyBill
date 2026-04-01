@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Divider from '@mui/material/Divider'
+import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 
 const LAST_UPDATED = 'March 2026'
@@ -94,8 +95,8 @@ export function TermsPage() {
       </Section>
 
       <Section title="Contact">
-        Questions about these terms can be directed to us via the contact information on the
-        FAQ page.
+        Questions about these terms can be directed to{' '}
+        <Link href="mailto:sbullocks@gmail.com">sbullocks@gmail.com</Link>.
       </Section>
     </Container>
   )

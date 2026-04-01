@@ -3,7 +3,6 @@ import Container from '@mui/material/Container'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import Link from '@mui/material/Link'
-import { Link as RouterLink } from 'react-router-dom'
 
 const LAST_UPDATED = 'March 2026'
 
@@ -16,7 +15,7 @@ export function PrivacyPage() {
       </Typography>
 
       <Section title="Overview">
-        FightMyBill ("we", "us", "our") operates the website at www.intellibuild-labs.com. This policy
+        FightMyBill ("we", "us", "our") operates the website at www.fight-my-bill.com. This policy
         explains what information we collect when you use our service, how we use it, and your
         rights regarding that information.
       </Section>
@@ -99,7 +98,7 @@ export function PrivacyPage() {
           <li>Request deletion of your account and stored analyses</li>
           <li>Opt out of any future communications (we send very few)</li>
         </ul>
-        To exercise these rights, contact us at the email listed below.
+        To exercise these rights, contact us at sbullocks@gmail.com.
       </Section>
 
       <Section title="Cookies and local storage">
@@ -119,9 +118,8 @@ export function PrivacyPage() {
       </Section>
 
       <Section title="Contact">
-        For privacy questions or data deletion requests, contact us through the{' '}
-        <Link component={RouterLink} to="/faq">FAQ page</Link> or the GitHub repository linked
-        in the footer.
+        For privacy questions or data deletion requests, email us at{' '}
+        <Link href="mailto:sbullocks@gmail.com">sbullocks@gmail.com</Link>.
       </Section>
     </Container>
   )
