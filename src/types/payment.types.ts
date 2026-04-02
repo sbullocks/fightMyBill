@@ -8,7 +8,6 @@ export interface CheckoutRequest {
   session_id: string
   success_url: string
   cancel_url: string
-  user_id?: string
 }
 
 export interface CheckoutResponse {

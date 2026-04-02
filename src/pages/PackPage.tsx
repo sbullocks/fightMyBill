@@ -29,9 +29,11 @@ export function PackPage() {
       session_id: sessionId,
       success_url: `${origin}/pack?purchased=true`,
       cancel_url: `${origin}/pack`,
-      user_id: user.id,
     }).unwrap()
-    window.location.href = result.checkout_url
+    // Validate the URL is a Stripe checkout URL before redirecting
+    if (result.checkout_url.startsWith('https://checkout.stripe.com/')) {
+      window.location.href = result.checkout_url
+    }
   }
 
   return (

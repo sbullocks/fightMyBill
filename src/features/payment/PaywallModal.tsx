@@ -39,9 +39,11 @@ export function PaywallModal({ open, onClose, analysisId }: PaywallModalProps) {
         session_id: sessionId,
         success_url: `${origin}/payment/success?analysis_id=${analysisId}`,
         cancel_url: `${origin}/analyze/${analysisId}`,
-        user_id: user?.id,
       }).unwrap()
-      window.location.href = result.checkout_url
+      // Validate the URL is a Stripe checkout URL before redirecting
+      if (result.checkout_url.startsWith('https://checkout.stripe.com/')) {
+        window.location.href = result.checkout_url
+      }
     } catch {
       // error handled by RTK Query
     }
