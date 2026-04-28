@@ -35,7 +35,7 @@ export function NavBar() {
           FightMyBill
         </Typography>
         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-          <Button component={RouterLink} to="/faq" size="small" color="inherit">
+          <Button component={RouterLink} to="/faq" size="small" color="primary">
             FAQ
           </Button>
           {user ? (
@@ -53,7 +53,7 @@ export function NavBar() {
               <Button component={RouterLink} to="/pack" size="small">
                 My Pack
               </Button>
-              <Button onClick={handleSignOut} size="small" color="inherit">
+              <Button onClick={handleSignOut} size="small" color="primary">
                 Sign Out
               </Button>
             </>
